@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.text-input {
+  border: 0.1rem solid #cacccd;
+  height: 5rem;
+  font-size: 32px;
+  font-weight: 300;
+  padding: 1px;
+}
+
+.button {
+  font-size: 32px;
+}
+
+.connected {
+  color: green;
+}
