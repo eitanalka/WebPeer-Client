@@ -3,6 +3,7 @@ import './App.css';
 import { fileServerURL } from '.';
 import PeerComponentDemo from './PeerComponentDemo';
 import FileList from './FileList';
+import FileUpload from './FileUpload';
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class App extends Component {
         <header className="App-header">
           <PeerComponentDemo />
           {this.state.files.length > 0 && <FileList files={this.state.files}/>}
+          <FileUpload />
         </header>
       </div>
     );
