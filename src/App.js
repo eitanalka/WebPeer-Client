@@ -5,7 +5,7 @@ import PeerComponentDemo from './PeerComponentDemo';
 import FileList from './FileList';
 import LocalFileList from './LocalFileList';
 
-const REQUEST_BYTES = 1024*1024*50;
+const REQUEST_BYTES = 1024*1024*50; // 50 MB
 
 class App extends Component {
   constructor(props) {
