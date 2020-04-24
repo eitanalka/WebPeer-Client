@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { fileServerURL } from '.';
 import PeerComponentDemo from './PeerComponentDemo';
+import PeerComponent from './PeerComponent';
 import FileList from './FileList';
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <PeerComponentDemo />
+          <PeerComponent />
           {this.state.files.length > 0 && <FileList files={this.state.files}/>}
         </header>
       </div>
