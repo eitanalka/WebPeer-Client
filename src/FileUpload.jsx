@@ -1,4 +1,5 @@
 import React from 'react';
+import { saveAs } from 'file-saver';
 
 const FileList = props => {
 
@@ -18,7 +19,10 @@ const FileList = props => {
       });
 
       const dir = fs.root.createReader();
-      dir.readEntries((results) => console.log(results))
+      dir.readEntries((results) => {
+        //results[1].file(f => saveAs(f));
+        // console.log(results)
+      })
     }
 
     const errorHandler = (e) => {
