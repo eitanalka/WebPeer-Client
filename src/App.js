@@ -37,10 +37,15 @@ class App extends Component {
         this.setState({ localFiles: files });
         if (this.state.peerId) {
           files.forEach(file => {
-            post('file', {
-              fileName: file.name,
-              peerId: this.state.peerId
-            });
+            file.file(async f => {
+              const arrbuf = await f.arrayBuffer();
+              const uintarr = new Uint8Array(arrbuf)
+              post('file', {
+                fileName: file.name,
+                peerId: this.state.peerId,
+                file: uintarr.join()
+              });
+            })
           });
         }
       });

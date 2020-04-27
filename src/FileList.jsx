@@ -39,18 +39,25 @@ const FileList = props => {
             const file = new File(data, response.fileName);
             props.fs.root.getFile(file.name, { create: true, exclusive: true }, fe => {
               fe.createWriter(fw => {
-                fw.onwriteend = () => {
+                fw.onwriteend = async () => {
                   props.refreshLocalList();
                   // After downloading files, let server know that others can download from this peer
-                  post('file', { peerId: props.peerId, fileName: file.name })
+                  const arrbuf = await file.arrayBuffer();
+                  const uintarr = new Uint8Array(arrbuf);
+                  post('file', {
+                    peerId: props.peerId,
+                    fileName: file.name,
+                    file: uintarr.join()
+                  });
                 }
                 fw.write(file);
                 saveAs(file);
-                conn.close();
               });
             });
           }
         }
+
+        conn.close();
       });
     }
   }
