@@ -110,12 +110,13 @@ class App extends Component {
         console.log(request);
         if (request.type === 'file') {
           this.state.fs.root.getFile(request.fileName, {}, fe => {
-            console.log(fe);
             fe.file(file => {
+              const partSize = file.size/request.div;
+              const offset = request.part * partSize;
               conn.send({
                 type: 'file',
                 fileName: request.fileName,
-                file
+                file: file.slice(offset, offset+partSize)
               });
             });
           }, e => {
@@ -135,7 +136,7 @@ class App extends Component {
         <h1>WebPeer</h1>
         {this.state.peerId && <h3>Your Peer ID is: {this.state.peerId}</h3>}
         {this.state.files.length > 0 && this.state.peerId &&
-          <FileList files={this.state.files} fs={this.state.fs} refreshLocalList={this.refreshLocalList.bind(this)} peer={this.peer} peerId={this.state.peerId} />}
+          <FileList files={this.state.files} localFiles={this.state.localFiles} fs={this.state.fs} refreshLocalList={this.refreshLocalList.bind(this)} peer={this.peer} peerId={this.state.peerId} />}
         {this.state.localFiles.length > 0 && this.state.fs && this.state.peerId &&
           <LocalFileList files={this.state.localFiles} fs={this.state.fs} refreshLocalList={this.refreshLocalList.bind(this)} peerId={this.state.peerId} />}
         {this.state.fs && this.state.peerId && <FileUpload fs={this.state.fs} refreshLocalList={this.refreshLocalList.bind(this)} peerId={this.state.peerId} />}
