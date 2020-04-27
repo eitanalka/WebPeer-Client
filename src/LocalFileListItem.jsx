@@ -15,7 +15,8 @@ const LocalFileListItem = props => {
 
   const pStyle = {
     color: 'navy',
-    marginBottom: 0
+    marginBottom: '3px',
+    marginTop: '5px'
   };
 
   return (

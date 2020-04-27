@@ -7,9 +7,14 @@ const onClick = (fileEntry) => {
   fileEntry.file(f => saveAs(f));
 }
 
+const h3Style = {
+  color: 'navy',
+  marginBottom: '3px'
+}
+
 const LocalFileList = props => (
   <div>
-    <h3 style={{color: "navy"}}>Local File List:</h3>
+    <h3 style={h3Style}>Local File List:</h3>
     {props.files.map(file => 
       <LocalFileListItem 
         key={file.name} 
