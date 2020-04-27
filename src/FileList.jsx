@@ -39,10 +39,24 @@ const FileList = props => {
     });
   }
 
+
   return (
     <div>
       <h3>Peer File List:</h3>
-      {props.files.map(file => file.peers.length > 0 && <FileListItem key={file.fileName} file={file.fileName} peers={file.peers} onClick={onClick} />)}
+      {props.files.map(file => {
+        const peers = file.peers.filter(peerId => peerId !== props.peerId);
+        if (peers.length > 0) {
+          return (
+            <FileListItem
+              key={file.fileName}
+              file={file.fileName}
+              peers={peers}
+              onClick={onClick}
+            />
+          )
+        }
+        return false;
+      })}
     </div>
   );
 };
