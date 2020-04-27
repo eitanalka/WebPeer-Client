@@ -70,10 +70,12 @@ const FileList = props => {
     return false;
   }
 
-
+  const h3Style = {
+    marginBottom: '3px'
+  }
   return (
     <div>
-      <h3>Peer File List:</h3>
+      <h3 style={h3Style}>Peer File List:</h3>
       {props.files.map(file => {
         if (!containsFile(file) && file.peers.length > 0) {
           return (

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
+import { saveAs } from 'file-saver';
 import './App.css';
 import { fileServerURL, socketServerURL } from '.';
 import { post } from './helpers';
 import FileList from './FileList';
 import LocalFileList from './LocalFileList';
 import FileUpload from './FileUpload';
+import DirectSend from './DirectSend';
 
 const REQUEST_BYTES = 1024*1024*50; // 50 MB
 
@@ -128,6 +130,10 @@ class App extends Component {
             console.log('error', e);
             conn.close();
           });
+        } else if (request.type === 'file-direct') {
+          const file = new File([request.file], request.fileName);
+          saveAs(file);
+          conn.close();
         }
       });
     });
@@ -145,6 +151,7 @@ class App extends Component {
         {this.state.localFiles.length > 0 && this.state.fs && this.state.peerId &&
           <LocalFileList files={this.state.localFiles} fs={this.state.fs} refreshLocalList={this.refreshLocalList.bind(this)} peerId={this.state.peerId} />}
         {this.state.fs && this.state.peerId && <FileUpload fs={this.state.fs} refreshLocalList={this.refreshLocalList.bind(this)} peerId={this.state.peerId} />}
+        {this.state.peerId && <DirectSend peer={this.peer} />}
       </div>
     );
   }
